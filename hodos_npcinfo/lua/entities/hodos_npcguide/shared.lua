@@ -1,0 +1,9 @@
+ENT.Base	    			= "base_ai"
+ENT.Type	    			= "ai"
+ENT.PrintName				= "NPC Info"
+ENT.Author					= "hodos"
+ENT.Category				= "hodos"
+ENT.Instructions			= "Approchez vous du NPC et actionnez votre touche [USE]"
+ENT.Spawnable				= true
+ENT.AdminSpawnable			= true
+ENT.AutomaticFrameAdvance	= true
