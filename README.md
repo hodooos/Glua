@@ -1,2 +1,2 @@
 # glua
-Some addons 
+Some addons I do in my free time.
