@@ -1,4 +1,5 @@
 include('shared.lua')
+HODOSNPCINFOS = HODOSNPCINFOS or {}
 --/ Responsive
 local x, y = ScrW(), ScrH()
 
@@ -7,6 +8,32 @@ local function ChangeResponsive()
     y = ScrH()
 end
 hook.Add("OnScreenSizeChanged", "Hodos:Responsive", ChangeResponsive)
+
+--/ Configuration:
+HODOSNPCINFOS.Colors = {
+	["BackGround"] = Color(249, 222, 201, 255),
+	["Button"] = Color(58, 64, 90, 255),
+	["Text_Title"] = Color(255, 255, 255, 255),
+	["Text_Button"] = Color(249, 222, 201, 255),
+	["Text_Title_NPC"] = Color(255, 255, 255, 255)
+} --/ Colors
+
+HODOSNPCINFOS.Url = {
+	["Forum"] = "https://forum.hodos.fr/",
+	["Collection"] = "https://steamcommunity.com/sharedfiles/filedetails/?id=2410000000",
+	["Discord"] = "https://discord.gg/4Z5Y4Z8",
+	["Site"] = "https://hodos.fr/"
+} --/ Url
+
+HODOSNPCINFOS.Sprite = {
+	["Forum"] = Material("hodos_icons/forum.png"),
+	["Collection"] = Material("hodos_icons/steam.png"),
+	["Discord"] = Material("hodos_icons/discord.png"),
+	["Site"] = Material("hodos_icons/site.png")
+} --/ Sprite
+
+---/ End of configuration
+
 
 --/ Fonts
 surface.CreateFont("hodos_button", {
@@ -27,11 +54,11 @@ surface.CreateFont("hodos_npc_title", {
 	weight = 600
 })
 
-local hodos_forum = Material("hodos_icons/forum.png")
-local hodos_collection = Material("hodos_icons/steam.png")
-local hodos_discord = Material("hodos_icons/discord.png")
-local hodos_site = Material("hodos_icons/site.png")
-
+--/ Sprite
+local hodos_forum = HODOSNPCINFOS.Sprite["Forum"]
+local hodos_collection = HODOSNPCINFOS.Sprite["Collection"]
+local hodos_discord = HODOSNPCINFOS.Sprite["Discord"]
+local hodos_site = HODOSNPCINFOS.Sprite["Site"]
 
 --/ Frame
 local function HodosNPCOpenFrame()
@@ -43,8 +70,8 @@ local function HodosNPCOpenFrame()
 	mainframe:Center()
 	mainframe:MakePopup()
 	function mainframe:Paint(w, h)
-		draw.RoundedBox(25, 0, 0, w, h, Color(249, 222, 201, 255))
-		draw.DrawText("Votre Guide", "hodos_main", x * 0.085, y * 0.02, Color(0, 0, 0, 255))
+		draw.RoundedBox(25, 0, 0, w, h, HODOSNPCINFOS.Colors["BackGround"])
+		draw.DrawText("Votre Guide", "hodos_main", x * 0.085, y * 0.02, HODOSNPCINFOS.Colors["Text_Title"])
 		surface.SetMaterial(hodos_forum)
 		surface.DrawTexturedRect(x * 0.175, y * 0.175, x * 0.02, y * 0.032)
 		surface.SetMaterial(hodos_discord)
@@ -61,7 +88,7 @@ local function HodosNPCOpenFrame()
 	closebutton:SetSize(x * 0.1, y * 0.04)
 	closebutton:SetPos(x * 0.215, y * 0)
 	function closebutton:Paint(w, h)
-		draw.DrawText("×", "hodos_button", 25, 15, Color(0, 0, 0, 255))
+		draw.DrawText("×", "hodos_button", 25, 15, HODOSNPCINFOS.Colors["Text_Title"])
 	end
 	closebutton.DoClick = function()
 		mainframe:Close()				
@@ -73,11 +100,11 @@ local function HodosNPCOpenFrame()
 	sitebutton:SetSize(x * 0.1, y * 0.04)
 	sitebutton:SetPos(x * 0.015, y * 0.11)
 	function sitebutton:Paint(w, h)
-		draw.RoundedBox(25, 0, 0, w, h, Color(58, 64, 90, 255))
-		draw.DrawText("Site", "hodos_button", x * 0.04, y * 0.007, Color(255, 255, 255, 255))
+		draw.RoundedBox(25, 0, 0, w, h, HODOSNPCINFOS.Colors["Button"])
+		draw.DrawText("Site", "hodos_button", x * 0.04, y * 0.007, HODOSNPCINFOS.Colors["Text_Button"])
 	end
 	sitebutton.DoClick = function()
-		gui.OpenURL("https://ateria-community.com/forum")			
+		gui.OpenURL(HODOSNPCINFOS.Url["Site"])			
 	end
 
 	--/ Collection Button:
@@ -86,11 +113,11 @@ local function HodosNPCOpenFrame()
 	collectionbutton:SetSize(x * 0.1, y * 0.04)
 	collectionbutton:SetPos(x * 0.015, y * 0.21)
 	function collectionbutton:Paint(w, h)
-		draw.RoundedBox(25, 0, 0, w, h, Color(58, 64, 90, 255))
-		draw.DrawText("Collection", "hodos_button", x * 0.025, y * 0.007, Color(255, 255, 255, 255))
+		draw.RoundedBox(25, 0, 0, w, h, HODOSNPCINFOS.Colors["Button"])
+		draw.DrawText("Collection", "hodos_button", x * 0.025, y * 0.007, HODOSNPCINFOS.Colors["Text_Button"])
 	end
 	collectionbutton.DoClick = function()
-		gui.OpenURL("https://ateria-community.com/collection")			
+		gui.OpenURL(HODOSNPCINFOS.Url["Collection"])			
 	end
 
 	--/ Discord Button:
@@ -99,11 +126,11 @@ local function HodosNPCOpenFrame()
 	discordbutton:SetSize(x * 0.1, y * 0.04)
 	discordbutton:SetPos(x * 0.135, y * 0.11)
 	function discordbutton:Paint(w, h)
-		draw.RoundedBox(25, 0, 0, w, h, Color(58, 64, 90, 255))
-		draw.DrawText("Discord", "hodos_button", x * 0.033, y * 0.007, Color(255, 255, 255, 255))
+		draw.RoundedBox(25, 0, 0, w, h, HODOSNPCINFOS.Colors["Button"])
+		draw.DrawText("Discord", "hodos_button", x * 0.033, y * 0.007, HODOSNPCINFOS.Colors["Text_Button"])
 	end
 	discordbutton.DoClick = function()
-		gui.OpenURL("https://discord.gg/ateria")			
+		gui.OpenURL(HODOSNPCINFOS.Url["Discord"])			
 	end
 
 	--/ Forum Button:
@@ -112,18 +139,15 @@ local function HodosNPCOpenFrame()
 	forumbutton:SetSize(x * 0.1, y * 0.04)
 	forumbutton:SetPos(x * 0.135, y * 0.21)
 	function forumbutton:Paint(w, h) 
-		draw.RoundedBox(25, 0, 0, w, h, Color(58, 64, 90, 255))
-		draw.DrawText("Forum", "hodos_button", x * 0.033, y * 0.007, Color(255, 255, 255, 255))
+		draw.RoundedBox(25, 0, 0, w, h, HODOSNPCINFOS.Colors["Button"])
+		draw.DrawText("Forum", "hodos_button", x * 0.033, y * 0.007, HODOSNPCINFOS.Colors["Text_Button"])
 	end
 	forumbutton.DoClick = function()
-		gui.OpenURL("https://ateria-community.com/forum")			
+		gui.OpenURL(HODOSNPCINFOS.Url["Forum"])			
 	end
 end
 
 net.Receive("HodosNPCOpenFrame", HodosNPCOpenFrame) --/ Receive the net message from shared.lua
-
-function ENT:Initialize()
-end
 
 function ENT:Draw()
 	self:DrawModel()
@@ -136,7 +160,7 @@ function ENT:Draw()
 
 		if Distance < 200000 then
 			cam.Start3D2D(Pos + Vector(0, 0, TimedSin(.5, 84, 86, .5)), Angle(TimedSin(.5, 0, 10, 0), LocalPlayer():EyeAngles().y - 90, 90), .06)
-				draw.SimpleText("Guide", "hodos_npc_title", 0, 0, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+				draw.SimpleText("Guide", "hodos_npc_title", 0, 0, HODOSNPCINFOS.Colors["Text_Title_NPC"], TEXT_ALIGN_CENTER)
 			cam.End3D2D()
 		end
 	end
